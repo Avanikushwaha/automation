@@ -1,0 +1,14 @@
+---
+- name: Check all installed packages on Ubuntu VM
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: Gather a list of all installed packages
+      command: dpkg --get-selections
+      register: installed_packages
+
+    - name: Print the list of installed packages
+      debug:
+        msg: "{{ installed_packages.stdout_lines }}"
